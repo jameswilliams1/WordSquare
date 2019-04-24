@@ -15,6 +15,18 @@ class WordList():
         @param prefix The prefix that each word must start with (does not have to be a single letter)
         @return The next word matching the criteria as a list
         '''
+        def find_word():
+            '''Used internally to produce a single word.'''
+            word = [prefix]
+            loop_finished = True  # Assume loop will run till end
+            for i in indices[:r]:
+                word.append(pool[i])
+                word_as_string = ''.join(word)
+                if not self.word_list.has_keys_with_prefix(word_as_string) and not self.word_list.get(word_as_string):
+                    loop_finished = False
+                    break
+            if loop_finished and self.word_list.get(''.join(word)):
+                return word
         pool = list(string)
         n = len(pool)
         r = n if r is None else r
@@ -23,10 +35,9 @@ class WordList():
             return
         indices = list(range(n))
         cycles = list(range(n, n - r, -1))
-        word = [prefix] + list(pool[i] for i in indices[:r])
-        if self.word_list.get(str(word), default=False):
+        word = find_word()
+        if word:
             yield word
-        print(''.join(word) + ' *')
         while n:
             for i in reversed(range(r)):
                 cycles[i] -= 1
@@ -36,8 +47,9 @@ class WordList():
                 else:
                     j = cycles[i]
                     indices[i], indices[-j] = indices[-j], indices[i]
-                    word = [prefix] + list(pool[i] for i in indices[:r])
-                    yield word
+                    word = find_word()
+                    if word:
+                        yield word
                     break
             else:
                 return
@@ -45,8 +57,8 @@ class WordList():
 
 if __name__ == '__main__':
     word_list = WordList('../word_lists/enable1.marisa')
-    #gen = [word for word in word_list.find_words(3, 'rakgn', 'c')]
-    gen = word_list.find_words('rax', 1, prefix="ca")
+    gen = word_list.find_words('rax', 3, prefix="c")
     for i in gen:
-        print(''.join(i) + " *")
+        print(''.join(i))
+        # print(i)
     # word_list.permutations("abc")

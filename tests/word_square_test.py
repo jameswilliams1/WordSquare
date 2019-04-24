@@ -23,15 +23,17 @@ class WordSquareTest(unittest.TestCase):
     def test_find_words_no_possible_answers(self):
         word_generator = self.word_list.find_words('vwj', 2, 'x')
         with self.assertRaises(StopIteration):
-            print(next(word_generator))
+            next(word_generator)
 
     def test_find_words_r_is_1(self):
         word_generator = self.word_list.find_words('vwb', 1, 'a')
-        self.assertRaises(StopIteration, next(word_generator))
+        with self.assertRaises(StopIteration):
+            next(word_generator)
 
-    def test_find_words_r_less_than_n(self):
-        word_generator = self.word_list.find_words('vwj', 2, 'ab')
-        self.assertRaises(StopIteration, next(word_generator))
+    def test_find_words_r_greater_than_n(self):
+        word_generator = self.word_list.find_words('ds', 5, 'en')
+        with self.assertRaises(StopIteration):
+            next(word_generator)
 
 
 
