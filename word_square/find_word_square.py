@@ -18,7 +18,9 @@ class WordList():
         found_words = []
         def find_word():
             '''Used internally to produce a single word.'''
-            word = [prefix]
+            word = []
+            if prefix:
+                word.append(prefix)
             loop_finished = True
             for i in indices[:r]:
                 word.append(pool[i])
@@ -31,7 +33,6 @@ class WordList():
 
         pool = list(string)
         pool.sort()
-        last_used_letter = pool[0]
         n = len(pool)
         r = n if r is None else r
         if r > n:
@@ -66,6 +67,7 @@ class WordList():
 if __name__ == '__main__':
     word_list = WordList('../word_lists/enable1.marisa')
     gen = word_list.find_words('nabraa', 3, 'c')
+    word_generator = word_list.find_words('acr', 3)
     for i in gen:
         print(''.join(i))
         # print(i)

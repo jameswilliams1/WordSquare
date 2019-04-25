@@ -26,14 +26,26 @@ class WordSquareTest(unittest.TestCase):
             next(word_generator)
 
     def test_find_words_r_is_1(self):
+        # Cannot find word of length 1 when combining 2 strings
         word_generator = self.word_list.find_words('vwb', 1, 'a')
         with self.assertRaises(StopIteration):
             next(word_generator)
 
     def test_find_words_r_greater_than_n(self):
+        # Desired word length > input string
         word_generator = self.word_list.find_words('ds', 5, 'en')
         with self.assertRaises(StopIteration):
             next(word_generator)
+
+    def test_find_words_r_is_1_no_prefix(self):
+        word_generator = self.word_list.find_words('acr', 3)
+        found_words = [''.join(word) for word in word_generator]
+        possible_words = ['arc', 'car']
+        possible_words.sort()
+        found_words.sort()
+        self.assertEqual(possible_words, found_words)
+
+
 
 
 
