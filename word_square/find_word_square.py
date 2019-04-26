@@ -37,77 +37,7 @@ class WordList():
 
     def find_word_square(self, r, string):
         '''Finds a valid word square of length r from string. '''
-
-        def build_square():
-            '''Used internally to add sucessive words to the word_square.'''
-
-            for i in range(1, r):
-                print(list(word_square[i]))
-                # prefix_present = all(elem in list(current_string) for elem in list(word_square[i]))
-                # if not prefix_present: # If required letters to form square not in remaining string
-                #     return
-
-                print(letters_available)
-                for letter in word_square[i]:
-                    letters_available[letter] -= 1
-                    if letters_available[letter] < 0:
-                        return
-
-                next_word = self.find_words(
-                    current_string, r, prefix=word_square[i])
-                try:
-                    word_square[i] = ''.join(next(next_word))
-                except StopIteration:
-                    return
-                for j in range(i, r - 1):  # Add the next word vertically
-                    word_square[j + 1] += word_square[i][j + 1]
-                # Remove letters in first_word from string
-                for used_letter in word_square[i]:
-                    current_string.replace(used_letter, '', 1)
-            return word_square
-
-        if not r**2 == len(string):
-            return
-        pool = list(string)
-        # Sort pool by lowest frequency
-        count = Counter(pool)
-        pool = sorted(pool, key=lambda x: count[x])
-        least_occuring = pool.pop(0)
-        pool.append(least_occuring)  # Put least occuring letter to back
-        last_used_letter = ''
-        for first_letter in pool:
-            if first_letter == last_used_letter:
-                continue
-            last_used_letter = first_letter
-            new_string = string.replace(first_letter, '', 1)
-            first_word_gen = self.find_words(
-                new_string, r, prefix=first_letter)
-            while True:
-                try:
-                    print('----------------------')
-                    current_string = new_string
-                    first_word = next(first_word_gen)
-                    current_string_list = list(current_string)
-                    # Remove letters in first_word from string
-                    for used_letter in first_word[1:]:
-                        current_string_list.remove(used_letter)
-                    letters_available = Counter(current_string_list)
-
-                    word_square = [''.join(first_word)]
-                    try:
-                        # Add first_word vertically
-                        for letter in word_square[0][1:]:
-                            word_square.append(letter)
-                            current_string_list.remove(letter)
-                    except ValueError:
-                        continue
-                    current_string = ''.join(current_string_list)
-                    print(first_word, current_string)
-                    output = build_square()
-                    if output:
-                        return output
-                except StopIteration:
-                    break
+        pass
 
 
 if __name__ == '__main__':
