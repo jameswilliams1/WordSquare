@@ -14,7 +14,7 @@ class WordSquareTest(unittest.TestCase):
         self.word_list = WordList('../word_lists/enable1.marisa') # Immutable word list
 
     def test_find_word_possible_answers(self):
-        word_generator = self.word_list.find_word('nabraa', 3, 'c')
+        word_generator = self.word_list.find_word(3, 'nabraa', 'c')
         found_words = [''.join(word) for word in word_generator]
         possible_words = ['cab', 'can', 'car']
         possible_words.sort()
@@ -22,24 +22,24 @@ class WordSquareTest(unittest.TestCase):
         self.assertEqual(possible_words, found_words)
 
     def test_find_word_no_possible_answers(self):
-        word_generator = self.word_list.find_word('vwj', 2, 'x')
+        word_generator = self.word_list.find_word(2, 'vwj', 'x')
         with self.assertRaises(StopIteration):
             next(word_generator)
 
     def test_find_word_r_is_1(self):
         # Cannot find word of length 1 when combining 2 strings
-        word_generator = self.word_list.find_word('vwb', 1, 'a')
+        word_generator = self.word_list.find_word(1, 'vwb', 'a')
         with self.assertRaises(StopIteration):
             next(word_generator)
 
     def test_find_word_r_greater_than_n(self):
         # Desired word length > input string
-        word_generator = self.word_list.find_word('ds', 5, 'en')
+        word_generator = self.word_list.find_word(5, 'ds', 'en')
         with self.assertRaises(StopIteration):
             next(word_generator)
 
     def test_find_word_no_prefix(self):
-        word_generator = self.word_list.find_word('acr', 3)
+        word_generator = self.word_list.find_word(3, 'acr')
         found_words = [''.join(word) for word in word_generator]
         possible_words = ['arc', 'car']
         possible_words.sort()
@@ -49,7 +49,8 @@ class WordSquareTest(unittest.TestCase):
     def test_find_word_square_possible_answers(self):
         string = 'eeeeddoonnnsssrv'
         n = 4
-        word_square = np.array(self.word_list.find_word_square(n ,string))
+        word_square_gen = self.word_list.find_word_square(n ,string)
+        word_square = np.array(next(word_square_gen))
         # A valid word square is its own transpose
         transposed = word_square.T
         self.assertListEqual(list(word_square), list(transposed))
@@ -65,13 +66,6 @@ class WordSquareTest(unittest.TestCase):
     def test_find_word_square_no_possible_answers(self):
         string = 'cvbq'
         n = 2
-        word_square = self.word_list.find_word_square(n ,string)
-        with self.assertRaises(StopIteration):
-            next(word_square)
-
-    def test_find_word_square_string_too_long(self):
-        string = 'eeeeddoonnnsssrv'
-        n = 3
         word_square = self.word_list.find_word_square(n ,string)
         with self.assertRaises(StopIteration):
             next(word_square)
