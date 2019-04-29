@@ -1,0 +1,2 @@
+marisa-trie==0.7.5
+numpy==1.16.3

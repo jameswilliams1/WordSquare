@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Creates a Marisa Trie from a plaintext list of words and saves to word_lists with the same filename (.marisa extension).
 """

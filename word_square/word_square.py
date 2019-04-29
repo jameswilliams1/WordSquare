@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 '''
 This module defines the WordList class for creating valid English language acrostic word squares from a user entered string and word length. If ran as main, The program will prompt for user
 input in the form 'n string' where n is the word length and string is the string of letters to use when generating words. A valid word square is then output if one is possible.
@@ -94,7 +93,7 @@ class WordList():
 if __name__ == '__main__':
     word_list = WordList('../word_lists/enable1.marisa')
     try:
-        n = sys.argv[1] # This will fail if Python PATH is not set
+        n = sys.argv[1]
         string = sys.argv[2]
         n = int(n)
         string = string.lower()
