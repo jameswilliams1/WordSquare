@@ -8,6 +8,7 @@ sys.path.append('../word_square')
 from word_square import *
 import marisa_trie
 import numpy as np
+__author__ = 'James Williams'
 
 
 class WordSquareTest(unittest.TestCase):

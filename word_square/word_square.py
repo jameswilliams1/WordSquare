@@ -64,7 +64,8 @@ class WordList():
                     yield next_word_square
                     return
                 try:
-                    for i in range(cycle_count + 1, n): # Check each column prefix has possible words
+                    # Check each column prefix has possible words
+                    for i in range(cycle_count + 1, n):
                         vertical_prefix = [word[i] for word in word_square]
                         next(self.word_list.iterkeys(''.join(vertical_prefix)))
                 except StopIteration:
@@ -93,7 +94,7 @@ class WordList():
 if __name__ == '__main__':
     word_list = WordList('../word_lists/enable1.marisa')
     try:
-        n = sys.argv[1]
+        n = sys.argv[1] # This will fail if Python PATH is not set
         string = sys.argv[2]
         n = int(n)
         string = string.lower()
@@ -103,7 +104,7 @@ if __name__ == '__main__':
             for word in word_square:
                 print(word)
         except StopIteration:
-            print(f'No word square of length {n} could be found from {string}')
+            print(f'No word square of length {n} could be found from {string}.')
     except IndexError:
         print('No input. Input should be of the form "n string" where n is the word length and string is the letters to use to make words (at least n^2 characters).')
     except ValueError:

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Creates a Marisa Trie from a plaintext list of words and saves to word_lists
-with the same filename (.marisa extension).
+Creates a Marisa Trie from a plaintext list of words and saves to word_lists with the same filename (.marisa extension).
 """
 
 import marisa_trie
 from os.path import basename
+__author__ = 'James Williams'
 
 
 default_word_list_path = "...word_lists/enable1.txt"
