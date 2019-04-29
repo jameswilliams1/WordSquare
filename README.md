@@ -9,17 +9,17 @@ A set of python scripts for producing a [word square](https://en.wikipedia.org/w
 ### Requirements
 
 This project requires the [Microsoft Visual C++ 14.0 Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017 "Download link"), as well as
-[Python3](https://www.python.org/ "Download link").
+[Python3](https://www.python.org/ "Download link"). The Python executable should be added to the system path if using Windows and all .py files marked as executable if using Linux/Mac.
 
 ### Installation & Setup
 
 It is recommended to use a python [virtualenv](https://virtualenv.pypa.io/en/latest/ "Usage guide") to run this program. From a terminal, run `virtualenv venv` from the project root to create a `venv` folder. Follow the instructions on the virtualenv website to activate it for your OS. Then install the project requirements with `pip install -r requirements.txt`.
 
-This program can be used out of the box with the included [word list](http://norvig.com/ngrams/enable1.txt "Enable1 word list") which has already been converted to a Trie file as required. Alternatively run `python build_trie.py` and enter the path to a custom word list. This will generate and save a trie word list in the `word_lists` directory.
+This program can be used out of the box with the included [word list](http://norvig.com/ngrams/enable1.txt "Enable1 word list") which has already been converted to a Trie file as required. Alternatively run `build_trie.py` and enter the path to a custom word list. This will generate and save a trie word list in the `word_lists` directory. The path to this word list should then be added in word_square.py in place of the default one.
 
 ### Running the Program
 
-From a terminal run `python word_square.py`. Input must then be of the form `n string_of_letters` where n is the integer size of the word square to make (word length/number of words) and string_of_letters is a string of n<sup>2</sup> a-z letters (case-insensitive). The program will print the first word square that can be found then prompt for more input.
+From a terminal, cd to the word_square directory and run `word_square.py n string` where `n` is the integer size of the word square to make (word length/number of words) and `string` is a string of at least n<sup>2</sup> a-z letters (case-insensitive). The program will print a valid word square if one can be found.
 
 ## Performance
-This project attempts to find words from the input string recursively.
+This program finds words from the input string recursively using pruning with each recursive call. Any branches that cannot lead to a word are exited, as are any that would lead to a duplicate result (as clearly the input string must have at least 2 of all except one of the letters for a word square to be possible). Small word squares can generally be found in around 1s on a modern PC, but this time grows exponentially for larger words.

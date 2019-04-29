@@ -1,17 +1,18 @@
+#!/usr/bin/env python3
 """
 Tests for word_square.py
 """
 import sys
 import unittest
 sys.path.append('../word_square')
-from find_word_square import *
+from word_square import *
 import marisa_trie
 import numpy as np
 
 
 class WordSquareTest(unittest.TestCase):
     def setUp(self):
-        self.word_list = WordList('../word_lists/enable1.marisa') # Immutable word list
+        self.word_list = WordList('../word_lists/enable1.marisa')
 
     def test_find_word_possible_answers(self):
         word_generator = self.word_list.find_word(3, 'nabraa', 'c')
@@ -76,7 +77,6 @@ class WordSquareTest(unittest.TestCase):
         word_square = self.word_list.find_word_square(n ,string)
         with self.assertRaises(StopIteration):
             next(word_square)
-
 
 if __name__ == "__main__":
     unittest.main()
